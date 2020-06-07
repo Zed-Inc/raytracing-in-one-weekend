@@ -12,6 +12,6 @@ const
   chunkY: int = imageY div numChunks
 
 
-var vec = Vector3(x:1.0,y:1.0,z:1.0)
 
-echo $vec[1]
+
+
