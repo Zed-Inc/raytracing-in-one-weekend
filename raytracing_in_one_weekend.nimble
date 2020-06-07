@@ -9,6 +9,7 @@ bin           = @["raytracing_in_one_weekend"]
 
 
 
+
 # Dependencies
 
 requires "nim >= 1.2.0"
