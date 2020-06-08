@@ -28,6 +28,7 @@ type
 #     discard 
 
 
+# create a vector 
 proc vec*(a,b,c:float): Vector3 = 
   return Vector3(x:a, y:b, z:c)
 
@@ -81,28 +82,28 @@ proc `*`*(v1,v2: Vector3): Vector3 =
 proc `/`*(v1,v2: Vector3): Vector3 =
   return Vector3(x: v1.x / v2.x, y: v1.y / v2.y, z: v1.z / v2.z)
 
-proc `+=`*(v1,v2: Vector3): Vector3 = 
-  return Vector3(x: v1.x + v2.x,
-                 y: v1.y + v2.y,
-                 z: v1.z + v2.z)
+proc `+=`*(v1: Vector3): Vector3 = 
+  return Vector3(x: v1.x + v1.x,
+                 y: v1.y + v1.y,
+                 z: v1.z + v1.z)
 
 # this may also be multiplying the vector with itself
 # TODO: check if these functions are actually multipled by itself in implementaion 
-proc `*=`*(v1,v2: Vector3): Vector3 =
-  return Vector3(x: v1.x * v2.x,
-                 y: v1.y * v2.y,
-                 z: v1.z * v2.z)
+proc `*=`*(v1: Vector3): Vector3 =
+  return Vector3(x: v1.x * v1.x,
+                 y: v1.y * v1.y,
+                 z: v1.z * v1.z)
 
-proc `/=`*(v1,v2: Vector3): Vector3 =
-  return Vector3(x: v1.x / v2.x,
-                 y: v1.y / v2.y,
-                 z: v1.z / v2.z)
+proc `/=`*(v1: Vector3): Vector3 =
+  return Vector3(x: v1.x / v1.x,
+                 y: v1.y / v1.y,
+                 z: v1.z / v1.z)
 
 
-proc `-=`*(v1,v2: Vector3): Vector3 =
-  return Vector3(x: v1.x - v2.x,
-                 y: v1.y - v2.y,
-                 z: v1.z - v2.z)
+proc `-=`*(v1: Vector3): Vector3 =
+  return Vector3(x: v1.x - v1.x,
+                 y: v1.y - v1.y,
+                 z: v1.z - v1.z)
 
 proc `*=`*(v1: Vector3, t: float): Vector3 =
   return Vector3(x: v1.x * t,

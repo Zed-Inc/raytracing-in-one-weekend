@@ -21,17 +21,19 @@ type
     A*: Vector3 # ray origin
     B*: Vector3 # ray direction
 
+# creates a ray
 proc ray*(a,b:Vector3): Ray = 
   return Ray(A: a, B: b)
 
 
 # return the vector at point t on the ray
 proc point_at_parameter*(A,B: Vector3, t: float): Vector3 = 
-  return A + t*B
+  return A + (t*B)
 
-
+# return the vector that is the origin of the ray 
 proc origin*(r: Ray): Vector3 =
   return r.A
 
+# return the vector that is the direction of the ray
 proc direction*(r: Ray): Vector3 = 
   return r.B

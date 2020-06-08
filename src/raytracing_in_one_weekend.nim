@@ -14,8 +14,8 @@ proc colour(r: Ray): Vector3
 const
   # if changing the image dimensions, make sure both the 
   # width and height can be evenly divided by 20
-  imageX: int = 960
-  imageY: int = 540
+  imageX: int = 200
+  imageY: int = 100
   numChunks: int = 20
   chunkX: int = imageX div numChunks
   chunkY: int = imageY div numChunks
@@ -59,15 +59,14 @@ for j in countdown(ny-1,0):
 
 # it's color
 proc colour(r: Ray): Vector3 =
-  var sphere = CreateSphere(vec(0.0,0.0,-1.0), 0.5)
+  var sphere = CreateSphere(vec(0,0,-1), 0.5)
   # check if the ray hit the sphere, if so return a red value
-  if bool(doesHitSphere(r,sphere)):
+  if doesHitSphere(r,sphere):
     return vec(1,0,0)
-  
-  var
-    unit_direction = unit_vector(r.direction()) 
-    t: float = 0.5*(unit_direction.y+1.0) #doesHitSphere(r, sphere)
-  return ((1.0 - t) * vec(1.0,1.0,1.0) + t*vec(0.5,0.7,1.0))
+  var unit_direction = unit_vector(r.direction()) 
+  var t: float = 0.5*(unit_direction.y + 1.0) #doesHitSphere(r, sphere)
+
+  return ((1.0 - t) * vec(1.0,1.0,1.0)) + (t * vec(0.5,0.7,1.0))
   
 
 
