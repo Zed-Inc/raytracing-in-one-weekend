@@ -15,12 +15,6 @@ type
     b*: float
 
 
-proc length*(vec: Vector3): float = 
-  return sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z))
-
-proc squaredLength*(vec: Vector3): float = 
-  return ((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z))
-
 # # return the value in the vector at i 
 # # you can call this as vec[1] or [vec,1], i think
 # proc `[]`*(thingo:Vector3, i:int): float = 
@@ -34,11 +28,18 @@ proc squaredLength*(vec: Vector3): float =
 #     discard 
 
 
+proc vec*(a,b,c:float): Vector3 = 
+  return Vector3(x:a, y:b, z:c)
+
 #-------------------------------------------------
 #--------- VECTOR AND FLOAT MANIPULATION ---------
 # multipy a vector by a float
 proc `*`*(v: Vector3, f: float): Vector3 = 
   return Vector3(x: f * v.x, y: f * v.y, z: f * v.z)
+
+proc `*`*(f: float, v: Vector3): Vector3 = 
+  return Vector3(x: f * v.x, y: f * v.y, z: f * v.z)
+
 
 # divide a vector by a float
 proc `/`*(v: Vector3, f: float): Vector3 = 
@@ -54,9 +55,15 @@ proc cross*(v1,v2: Vector3): Vector3 =
                  z: (v1.x * v2.y - v1.y * v2.x)
                  )
 
+proc length*(vec: Vector3): float = 
+  return sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z))
+
+proc squaredLength*(vec: Vector3): float = 
+  return ((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z))
+
 proc unit_vector*(v: Vector3): Vector3 = 
   return v / v.length
-
+#-------------------------------------------------
 #--------- VECTOR MANIPLUATION ------------------
 # add two vectors 
 proc `+`*(v1,v2: Vector3): Vector3 =
