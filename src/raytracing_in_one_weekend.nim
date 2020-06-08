@@ -3,19 +3,16 @@
 import ./vector,
       ./helperFunctions,
       ./ray,
-      ./model
+      ./model,
+      ./constants
 
-import strformat
+import strformat, arraymancer
 
 #----- FORWARD DECLARATION -------
-proc chunkTrace()
+proc chunkTrace(p: var Image)
 proc colour(r: Ray): Vector3
 
-const
-  # if changing the image dimensions, make sure both the 
-  # width and height can be evenly divided by 20
-  maxRayBounce: int = 3
-  Camera: Vector3 = Vector3(x: 0.0, y: 0.0, z: 0.0)
+const Camera: Vector3 = Vector3(x: 0.0, y: 0.0, z: 0.0)
   
 
 
@@ -66,5 +63,35 @@ proc colour(r: Ray): Vector3 =
 
 
 # break the image into chunks, multi-thread the raytracing of each chunk 
-proc chunkTrace() =
-  echo "chunk trace"
+proc chunkTrace(p: var Image) =
+  echo "doing the chunk trace"
+  #[
+    arc compiler, locks, experimental feature parralel 
+    1. seperate all the pixels into their chunks
+      TODO: convert chunks to Tensors
+    2. Seperate the chunks into n threads where n is the number of chunks 
+    3. apply the raytracing features to all chunks, all threads have access to
+       original pixel array for manipulation 
+
+    i am directly editing the parameter passed in, this allows for me to no
+  ]#
+
+
+  var pixelPos: int = 0 # the cursor position in the pixels
+  var pixelStop: int = pixelPos + (chunkX * chunkY) # Where the chunk end stops 
+  var pixelendPos: int = imagex * imageY # the maximum array bounds
+
+  # 1. seperate pixels into chunks
+  for c in 0..<numChunks:
+    for i in 0..<chunkY:
+      for j in 0..<chunkX:
+        for k in pixelPos..<pixelStop:
+          p.chunk[c][i][j] = p.ogPixels[k]
+        #----
+        # check we're not breaking any array boundaries
+        if pixelStop + (pixelPos + (chunkX * chunkY)) >= pixelendPos:
+          pixelStop = pixelendPos
+      #----
+    #----
+  #----
+

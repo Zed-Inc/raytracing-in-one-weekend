@@ -1,27 +1,26 @@
-# define a bunch of models that can be in the image
+# define some structures for the renderer to use
+
 import ./vector,
       ./ray,
-      math
+      math,
+      ./constants
 
 
-const
-  imageX: int = 200
-  imageY: int = 100
-  numChunks: int = 20
-  chunkX: int = imageX div numChunks
-  chunkY: int = imageY div numChunks
 
 type
+  # store all the pixel information for the image here
+  Image* = object
+    # store the original image pixels
+    ogPixels*: array[imageX*imageY, (float,float,float)]
+    # store the edited pixels, this array is what will be blitted to the screen
+    editPixels*: array[imageX*imageY, (float,float,float)]
+    # store the chunks of the image
+    # chunk[1][1][1] this is the first chunks pixel at (1,1)
+    chunk*: array[numChunks, array[chunkY,array[chunkX, (float,float,float)]]]
+
+
   Effects* = object
     glow: bool
-
-  Image* = object
-  # store the pixels of the image 
-    pixels*: array[imageX*imageY, (float,float,float)]
-    # store the chunks of the image
-    # chunk[1][1][1] this is the first chunks pixel at x:1,y:1 
-    chunk*: array[numChunks, array[chunkY,array[chunkX, float]]]
-
   Sphere* = object
     radius*: float
     center*: Vector3 # also could be called the origin
