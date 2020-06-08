@@ -36,6 +36,7 @@ var
   # origin = Vector3(x:0.0, y:0.0, z:0.0)
 
 print("P3\n" & $nx & " " & $ny & "\n255\n")
+
 for j in countdown(ny-1,0):
   for i in 0..nx:
     var 
@@ -89,7 +90,7 @@ proc chunkTrace(p: var Image) =
           p.chunk[c][i][j] = p.ogPixels[k]
         #----
         # check we're not breaking any array boundaries
-        if pixelStop + (pixelPos + (chunkX * chunkY)) >= pixelendPos:
+        if (pixelStop + (pixelPos + (chunkX * chunkY))) >= pixelendPos:
           pixelStop = pixelendPos
       #----
     #----
