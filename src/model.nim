@@ -3,9 +3,24 @@ import ./vector,
       ./ray,
       math
 
+
+const
+  imageX: int = 200
+  imageY: int = 100
+  numChunks: int = 20
+  chunkX: int = imageX div numChunks
+  chunkY: int = imageY div numChunks
+
 type
   Effects* = object
     glow: bool
+
+  Image* = object
+  # store the pixels of the image 
+    pixels*: array[imageX*imageY, (float,float,float)]
+    # store the chunks of the image
+    # chunk[1][1][1] this is the first chunks pixel at x:1,y:1 
+    chunk*: array[numChunks, array[chunkY,array[chunkX, float]]]
 
   Sphere* = object
     radius*: float

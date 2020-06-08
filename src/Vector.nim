@@ -26,13 +26,16 @@ type
 #     return thingo.z
 #   else:
 #     discard 
-
-
 # create a vector 
 proc vec*(a,b,c:float): Vector3 = 
   return Vector3(x:a, y:b, z:c)
 
 #-------------------------------------------------
+
+
+
+
+
 #--------- VECTOR AND FLOAT MANIPULATION ---------
 # multipy a vector by a float
 proc `*`*(v: Vector3, f: float): Vector3 = 
@@ -41,11 +44,16 @@ proc `*`*(v: Vector3, f: float): Vector3 =
 proc `*`*(f: float, v: Vector3): Vector3 = 
   return Vector3(x: f * v.x, y: f * v.y, z: f * v.z)
 
-
 # divide a vector by a float
 proc `/`*(v: Vector3, f: float): Vector3 = 
   return Vector3(x: v.x/f, y: v.y/f, z: v.z/f)
 #-------------------------------------------------
+
+
+
+
+
+
 #------------- VECTOR FUNCTIONS ------------------
 proc dot*(v1, v2: Vector3): float = 
   return ((v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z))
@@ -53,8 +61,7 @@ proc dot*(v1, v2: Vector3): float =
 proc cross*(v1,v2: Vector3): Vector3 =
   return Vector3(x: (v1.y * v2.z - v1.z * v2.y),
                  y: (v1.x * v2.z - v1.z * v2.x),
-                 z: (v1.x * v2.y - v1.y * v2.x)
-                 )
+                 z: (v1.x * v2.y - v1.y * v2.x))
 
 proc length*(vec: Vector3): float = 
   return sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z))
@@ -64,8 +71,26 @@ proc squaredLength*(vec: Vector3): float =
 
 proc unit_vector*(v: Vector3): Vector3 = 
   return v / v.length
+
+proc make_unit_vector*(e:var Vector3) =
+  var k = 1.0 / sqrt((e.x * e.x) + (e.y * e.y) + (e.z * e.z))
+  e.x = k
+  e.y = k
+  e.z = k
 #-------------------------------------------------
+
+
+
+
+
+
+
 #--------- VECTOR MANIPLUATION ------------------
+
+
+
+
+#-------------------------------------------------
 # add two vectors 
 proc `+`*(v1,v2: Vector3): Vector3 =
   return Vector3(x: v1.x + v2.x, y: v1.y + v2.y, z: v1.z + v2.z)
@@ -81,34 +106,38 @@ proc `*`*(v1,v2: Vector3): Vector3 =
 # divide two vectors 
 proc `/`*(v1,v2: Vector3): Vector3 =
   return Vector3(x: v1.x / v2.x, y: v1.y / v2.y, z: v1.z / v2.z)
+#-------------------------------------------------
 
+
+
+
+#-------------------------------------------------
 proc `+=`*(v1: Vector3): Vector3 = 
   return Vector3(x: v1.x + v1.x,
                  y: v1.y + v1.y,
                  z: v1.z + v1.z)
 
-# this may also be multiplying the vector with itself
-# TODO: check if these functions are actually multipled by itself in implementaion 
-proc `*=`*(v1: Vector3): Vector3 =
-  return Vector3(x: v1.x * v1.x,
-                 y: v1.y * v1.y,
-                 z: v1.z * v1.z)
-
-proc `/=`*(v1: Vector3): Vector3 =
-  return Vector3(x: v1.x / v1.x,
-                 y: v1.y / v1.y,
-                 z: v1.z / v1.z)
-
-
-proc `-=`*(v1: Vector3): Vector3 =
-  return Vector3(x: v1.x - v1.x,
-                 y: v1.y - v1.y,
-                 z: v1.z - v1.z)
+proc `*=`*(v1: var Vector3) =
+  v1.x = v1.x * v1.x
+  v1.y = v1.y * v1.y
+  v1.z = v1.z * v1.z
 
 proc `*=`*(v1: Vector3, t: float): Vector3 =
   return Vector3(x: v1.x * t,
                  y: v1.y * t,
                  z: v1.z * t)
+
+proc `-=`*(v1: var Vector3) =
+  v1.x =  v1.x - v1.x
+  v1.y = v1.y - v1.y
+  v1.z = v1.z - v1.z
+
+proc `/=`*(v1: var Vector3) =
+  v1.x = v1.x / v1.x
+  v1.y = v1.y / v1.y
+  v1.z = v1.z / v1.z
+
+
 
 proc `/=`*(v1: Vector3, k: float): Vector3 =
   var t = 1.0 / k

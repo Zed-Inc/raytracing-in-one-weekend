@@ -14,11 +14,6 @@ proc colour(r: Ray): Vector3
 const
   # if changing the image dimensions, make sure both the 
   # width and height can be evenly divided by 20
-  imageX: int = 200
-  imageY: int = 100
-  numChunks: int = 20
-  chunkX: int = imageX div numChunks
-  chunkY: int = imageY div numChunks
   maxRayBounce: int = 3
   Camera: Vector3 = Vector3(x: 0.0, y: 0.0, z: 0.0)
   
